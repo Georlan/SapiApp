@@ -10,71 +10,66 @@ type Answers = Partial<OnboardingData>;
 type Option = {
   value: string | number;
   title: string;
-  subtitle?: string;
-  emoji: string;
+  detail?: string;
 };
 
 type Step = {
   key: keyof OnboardingData;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   options: Option[];
 };
 
 const steps: Step[] = [
   {
     key: 'goal',
-    title: 'Qual é o seu objetivo?',
-    subtitle: 'Vamos usar isso para definir o ritmo da sua trilha.',
+    title: 'O que você quer fazer?',
     options: [
-      { value: 'passar', title: 'Passar no ENEM', subtitle: 'Quero construir uma preparação consistente', emoji: '🎓' },
-      { value: 'aumentar-nota', title: 'Aumentar minha nota', subtitle: 'Já estudo e quero evoluir mais rápido', emoji: '🚀' },
-      { value: 'nota-alta', title: 'Buscar uma nota muito alta', subtitle: 'Quero uma preparação exigente', emoji: '🏅' },
-      { value: 'base', title: 'Fortalecer minha base', subtitle: 'Quero entender de verdade os fundamentos', emoji: '🧠' },
+      { value: 'passar', title: 'Passar no ENEM' },
+      { value: 'aumentar-nota', title: 'Subir minha nota' },
+      { value: 'nota-alta', title: 'Disputar notas altas' },
+      { value: 'base', title: 'Reforçar minha base' },
     ],
   },
   {
     key: 'examYear',
-    title: 'Quando você pretende fazer o ENEM?',
-    subtitle: 'O tempo disponível muda a intensidade da jornada.',
+    title: 'Quando você faz a prova?',
     options: [
-      { value: '2026', title: 'ENEM 2026', emoji: '⚡' },
-      { value: '2027', title: 'ENEM 2027', emoji: '🎯' },
-      { value: '2028+', title: '2028 ou depois', emoji: '🌱' },
-      { value: 'nao-sei', title: 'Ainda não sei', emoji: '🧭' },
+      { value: '2026', title: '2026' },
+      { value: '2027', title: '2027' },
+      { value: '2028+', title: '2028 ou depois' },
+      { value: 'nao-sei', title: 'Ainda não sei' },
     ],
   },
   {
     key: 'target',
-    title: 'Qual meta parece certa para você?',
-    subtitle: 'Não é uma promessa de nota; é uma referência para o seu plano.',
+    title: 'Qual nota você quer buscar?',
+    subtitle: 'É só uma referência inicial. Você pode mudar depois.',
     options: [
-      { value: '600+', title: '600+', subtitle: 'Consolidar os fundamentos', emoji: '🌿' },
-      { value: '700+', title: '700+', subtitle: 'Boa competitividade', emoji: '⚡' },
-      { value: '750+', title: '750+', subtitle: 'Meta desafiadora', emoji: '🔥' },
-      { value: '800+', title: '800+', subtitle: 'Alta performance', emoji: '🏆' },
+      { value: '600+', title: '600+' },
+      { value: '700+', title: '700+' },
+      { value: '750+', title: '750+' },
+      { value: '800+', title: '800+' },
     ],
   },
   {
     key: 'dailyMinutes',
     title: 'Quanto tempo por dia?',
-    subtitle: 'Comece com algo que você realmente consegue manter.',
     options: [
-      { value: 5, title: '5 minutos', subtitle: 'Leve', emoji: '🌱' },
-      { value: 10, title: '10 minutos', subtitle: 'Recomendado', emoji: '⚡' },
-      { value: 20, title: '20 minutos', subtitle: 'Focado', emoji: '🔥' },
-      { value: 30, title: '30+ minutos', subtitle: 'Intenso', emoji: '🚀' },
+      { value: 5, title: '5 minutos', detail: '1 lição curta' },
+      { value: 10, title: '10 minutos', detail: 'Bom para criar hábito' },
+      { value: 20, title: '20 minutos', detail: 'Ritmo mais forte' },
+      { value: 30, title: '30+ minutos', detail: 'Sessão completa' },
     ],
   },
   {
     key: 'selfLevel',
-    title: 'Como você se sente hoje?',
-    subtitle: 'Depois o Sapi vai ajustar isso com base no seu desempenho real.',
+    title: 'Como está sua base hoje?',
     options: [
-      { value: 'dificuldade', title: 'Tenho bastante dificuldade', emoji: '🧩' },
-      { value: 'razoavel', title: 'Tenho uma base razoável', emoji: '🙂' },
-      { value: 'boa', title: 'Tenho uma boa base', emoji: '😎' },
-      { value: 'avancado', title: 'Já estou avançado', emoji: '🔥' },
+      { value: 'dificuldade', title: 'Tenho dificuldade' },
+      { value: 'razoavel', title: 'Razoável' },
+      { value: 'boa', title: 'Boa' },
+      { value: 'avancado', title: 'Avançada' },
     ],
   },
 ];
@@ -87,7 +82,7 @@ export default function OnboardingScreen() {
   const isSummary = stepIndex === steps.length;
   const step = steps[stepIndex];
   const selected = step ? answers[step.key] : undefined;
-  const progress = isSummary ? 1 : (stepIndex + 1) / (steps.length + 1);
+  const progress = isSummary ? 1 : (stepIndex + 1) / steps.length;
 
   const dailyGoalXp = useMemo(() => {
     const minutes = Number(answers.dailyMinutes ?? 10);
@@ -129,34 +124,32 @@ export default function OnboardingScreen() {
         <View style={styles.progressTrack}>
           <View style={[styles.progressFill, { width: `${progress * 100}%` }]} />
         </View>
+        <Text style={styles.stepCount}>{Math.min(stepIndex + 1, steps.length)}/{steps.length}</Text>
       </View>
 
       {isSummary ? (
         <View style={styles.summaryContainer}>
-          <View style={styles.summaryBadge}><Text style={styles.summaryBadgeText}>✓</Text></View>
-          <Text style={styles.summaryTitle}>Sua jornada está pronta.</Text>
-          <Text style={styles.summaryText}>Começaremos com Matemática e vamos medir sua evolução a cada etapa.</Text>
+          <Text style={styles.summaryKicker}>PRONTO</Text>
+          <Text style={styles.summaryTitle}>Começamos por Matemática.</Text>
+          <Text style={styles.summaryText}>A primeira trilha já está liberada.</Text>
 
           <View style={styles.planCard}>
             <View style={styles.planRow}><Text style={styles.planLabel}>Meta</Text><Text style={styles.planValue}>{answers.target}</Text></View>
             <View style={styles.separator} />
-            <View style={styles.planRow}><Text style={styles.planLabel}>Ritmo diário</Text><Text style={styles.planValue}>{answers.dailyMinutes} min</Text></View>
+            <View style={styles.planRow}><Text style={styles.planLabel}>Por dia</Text><Text style={styles.planValue}>{answers.dailyMinutes} min</Text></View>
             <View style={styles.separator} />
-            <View style={styles.planRow}><Text style={styles.planLabel}>Meta diária inicial</Text><Text style={styles.planValue}>{dailyGoalXp} XP</Text></View>
-            <View style={styles.separator} />
-            <View style={styles.planRow}><Text style={styles.planLabel}>Primeira trilha</Text><Text style={styles.planValue}>Matemática</Text></View>
+            <View style={styles.planRow}><Text style={styles.planLabel}>Meta diária</Text><Text style={styles.planValue}>{dailyGoalXp} XP</Text></View>
           </View>
 
           <Pressable onPress={finish} style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}>
-            <Text style={styles.primaryButtonText}>Entrar na minha trilha</Text>
+            <Text style={styles.primaryButtonText}>Abrir trilha</Text>
           </Pressable>
         </View>
       ) : (
         <>
           <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-            <Text style={styles.stepLabel}>PASSO {stepIndex + 1} DE {steps.length}</Text>
             <Text style={styles.title}>{step.title}</Text>
-            <Text style={styles.subtitle}>{step.subtitle}</Text>
+            {step.subtitle ? <Text style={styles.subtitle}>{step.subtitle}</Text> : null}
 
             <View style={styles.options}>
               {step.options.map((option) => {
@@ -167,10 +160,9 @@ export default function OnboardingScreen() {
                     onPress={() => choose(option.value)}
                     style={({ pressed }) => [styles.option, active && styles.optionActive, pressed && styles.pressed]}
                   >
-                    <Text style={styles.optionEmoji}>{option.emoji}</Text>
                     <View style={styles.optionCopy}>
                       <Text style={[styles.optionTitle, active && styles.optionTitleActive]}>{option.title}</Text>
-                      {option.subtitle ? <Text style={styles.optionSubtitle}>{option.subtitle}</Text> : null}
+                      {option.detail ? <Text style={styles.optionDetail}>{option.detail}</Text> : null}
                     </View>
                     <View style={[styles.radio, active && styles.radioActive]}>{active ? <View style={styles.radioDot} /> : null}</View>
                   </Pressable>
@@ -196,39 +188,37 @@ export default function OnboardingScreen() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.background },
-  topBar: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingHorizontal: 18, paddingTop: 6, paddingBottom: 8 },
-  backButton: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
-  backText: { color: colors.muted, fontSize: 36, lineHeight: 38 },
-  progressTrack: { flex: 1, height: 10, backgroundColor: colors.surfaceRaised, borderRadius: radii.pill, overflow: 'hidden' },
+  topBar: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 18, paddingTop: 8, paddingBottom: 8 },
+  backButton: { width: 36, height: 44, alignItems: 'center', justifyContent: 'center' },
+  backText: { color: colors.brandDark, fontSize: 34, lineHeight: 36 },
+  progressTrack: { flex: 1, height: 5, backgroundColor: colors.surfaceRaised, borderRadius: radii.pill, overflow: 'hidden' },
   progressFill: { height: '100%', backgroundColor: colors.accent, borderRadius: radii.pill },
-  content: { paddingHorizontal: 22, paddingTop: 26, paddingBottom: 24 },
-  stepLabel: { color: colors.accent, fontSize: 12, fontWeight: '900', letterSpacing: 1.3 },
-  title: { color: colors.text, fontSize: 30, lineHeight: 36, fontWeight: '900', marginTop: 10 },
-  subtitle: { color: colors.muted, fontSize: 15, lineHeight: 22, marginTop: 10 },
-  options: { gap: 12, marginTop: 28 },
-  option: { minHeight: 78, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, borderWidth: 1.5, borderColor: colors.border, borderRadius: radii.md, padding: 15 },
+  stepCount: { width: 34, color: colors.muted, textAlign: 'right', fontSize: 12, fontWeight: '700' },
+  content: { paddingHorizontal: 26, paddingTop: 54, paddingBottom: 24 },
+  title: { color: colors.text, fontSize: 34, lineHeight: 39, fontWeight: '900', letterSpacing: -1 },
+  subtitle: { color: colors.muted, fontSize: 14, lineHeight: 21, marginTop: 10, maxWidth: 300 },
+  options: { gap: 10, marginTop: 36 },
+  option: { minHeight: 68, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: radii.md, paddingHorizontal: 18, paddingVertical: 14 },
   optionActive: { backgroundColor: colors.accentSoft, borderColor: colors.accent },
-  optionEmoji: { fontSize: 25, marginRight: 13 },
   optionCopy: { flex: 1, minWidth: 0 },
   optionTitle: { color: colors.text, fontSize: 16, fontWeight: '800' },
-  optionTitleActive: { color: colors.accent },
-  optionSubtitle: { color: colors.muted, fontSize: 13, lineHeight: 18, marginTop: 4 },
-  radio: { width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: colors.border, alignItems: 'center', justifyContent: 'center', marginLeft: 10 },
+  optionTitleActive: { color: colors.brandDark },
+  optionDetail: { color: colors.muted, fontSize: 12, marginTop: 3 },
+  radio: { width: 20, height: 20, borderRadius: 10, borderWidth: 1.5, borderColor: colors.border, alignItems: 'center', justifyContent: 'center', marginLeft: 14 },
   radioActive: { borderColor: colors.accent },
   radioDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.accent },
-  footer: { padding: 20, borderTopWidth: 1, borderTopColor: colors.border },
-  primaryButton: { minHeight: 56, backgroundColor: colors.accent, borderRadius: radii.md, alignItems: 'center', justifyContent: 'center' },
-  primaryButtonText: { color: colors.black, fontWeight: '900', fontSize: 16 },
-  disabled: { opacity: 0.35 },
-  pressed: { opacity: 0.82 },
-  summaryContainer: { flex: 1, paddingHorizontal: 24, paddingBottom: 24, justifyContent: 'center' },
-  summaryBadge: { width: 68, height: 68, borderRadius: 22, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center', marginBottom: 22 },
-  summaryBadgeText: { color: colors.black, fontSize: 34, fontWeight: '900' },
-  summaryTitle: { color: colors.text, fontSize: 31, fontWeight: '900', lineHeight: 36 },
-  summaryText: { color: colors.muted, fontSize: 16, lineHeight: 23, marginTop: 10 },
-  planCard: { marginVertical: 28, backgroundColor: colors.surface, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.border, padding: 18 },
+  footer: { paddingHorizontal: 24, paddingTop: 12, paddingBottom: 20 },
+  primaryButton: { minHeight: 56, backgroundColor: colors.brandDark, borderRadius: radii.md, alignItems: 'center', justifyContent: 'center' },
+  primaryButtonText: { color: colors.white, fontWeight: '900', fontSize: 16 },
+  disabled: { opacity: 0.25 },
+  pressed: { opacity: 0.84 },
+  summaryContainer: { flex: 1, paddingHorizontal: 28, paddingBottom: 28, justifyContent: 'center' },
+  summaryKicker: { color: colors.accentStrong, fontSize: 12, fontWeight: '900', letterSpacing: 1.5 },
+  summaryTitle: { color: colors.text, fontSize: 36, fontWeight: '900', lineHeight: 41, letterSpacing: -1.2, marginTop: 10 },
+  summaryText: { color: colors.muted, fontSize: 15, lineHeight: 22, marginTop: 10 },
+  planCard: { marginVertical: 30, backgroundColor: colors.surface, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.border, padding: 18 },
   planRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 16 },
   planLabel: { color: colors.muted, fontSize: 14 },
-  planValue: { color: colors.text, fontSize: 15, fontWeight: '900', textAlign: 'right' },
+  planValue: { color: colors.brandDark, fontSize: 15, fontWeight: '900', textAlign: 'right' },
   separator: { height: 1, backgroundColor: colors.border, marginVertical: 14 },
 });
