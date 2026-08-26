@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Sapi",
+    "slug": "sapi",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "sapi",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.georlan.sapi",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B1220"
+      }
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
