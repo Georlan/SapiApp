@@ -5,6 +5,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
+    "dev:auto": "bash scripts/auto-sync.sh",
     "android": "expo start --android",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit"
