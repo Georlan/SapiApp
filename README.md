@@ -16,19 +16,33 @@ O primeiro corte valida o loop principal do produto:
 ## Stack
 
 - React Native
-- Expo SDK 57
+- Expo SDK 54
 - TypeScript
 - Expo Router
 - AsyncStorage para estado local do MVP
 - Supabase será integrado quando o loop principal estiver validado
 
-## Rodar
+## Rodar no Android
 
-Requer Node.js 22.13+ para Expo SDK 57.
+A escolha do SDK 54 é intencional neste primeiro estágio para facilitar os testes rápidos com a versão pública atual do Expo Go.
 
 ```bash
 npm install
 npx expo start
 ```
 
-Abra no Android usando um development build compatível com SDK 57. Se preferir testar com a versão pública atual do Expo Go e ela ainda não suportar SDK 57, use um development build/EAS ou ajuste temporariamente para um SDK compatível.
+No Android, abra o Expo Go e escaneie o QR Code exibido pelo Expo.
+
+Se o celular e o computador não se enxergarem na rede local, tente:
+
+```bash
+npx expo start --tunnel
+```
+
+## Próximas etapas
+
+1. validar visual e sensação do onboarding;
+2. validar o loop de lição e progressão;
+3. adicionar revisão e modo simulado;
+4. integrar Supabase/Auth;
+5. preparar monetização e plano Pro.
