@@ -1,0 +1,34 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" fill="#F7FAF7"/>
+  <g transform="translate(0,10)">
+    <circle cx="512" cy="280" r="170" stroke="#46A84F" stroke-width="10" fill="none"/>
+    <g fill="#46A84F">
+      <path d="M360 182C334 192 315 211 300 236C319 228 336 217 350 202C365 187 374 171 379 155C372 163 367 172 360 182Z"/>
+      <path d="M331 229C306 238 286 256 271 282C293 274 312 264 328 248C344 232 354 214 359 197C351 206 343 218 331 229Z"/>
+      <path d="M320 280C296 289 275 306 259 332C282 324 302 314 319 298C336 282 347 265 353 247C344 257 333 269 320 280Z"/>
+      <path d="M664 182C690 192 709 211 724 236C705 228 688 217 674 202C659 187 650 171 645 155C652 163 657 172 664 182Z"/>
+      <path d="M693 229C718 238 738 256 753 282C731 274 712 264 696 248C680 232 670 214 665 197C673 206 681 218 693 229Z"/>
+      <path d="M704 280C728 289 749 306 765 332C742 324 722 314 705 298C688 282 677 265 671 247C680 257 691 269 704 280Z"/>
+    </g>
+    <g>
+      <ellipse cx="452" cy="255" rx="39" ry="39" fill="#F7FAF7"/>
+      <ellipse cx="572" cy="255" rx="39" ry="39" fill="#F7FAF7"/>
+      <ellipse cx="452" cy="255" rx="27" ry="27" fill="#255B32"/>
+      <ellipse cx="572" cy="255" rx="27" ry="27" fill="#255B32"/>
+      <ellipse cx="460" cy="246" rx="8" ry="8" fill="#F7FAF7"/>
+      <ellipse cx="580" cy="246" rx="8" ry="8" fill="#F7FAF7"/>
+      <path d="M412 300C432 278 467 266 512 266C557 266 592 278 612 300C621 310 622 322 616 332C604 353 571 368 512 368C453 368 420 353 408 332C402 322 403 310 412 300Z" fill="#46A84F"/>
+      <path d="M439 324C460 316 484 312 512 312C540 312 564 316 585 324" stroke="#F7FAF7" stroke-width="14" stroke-linecap="round"/>
+      <circle cx="486" cy="294" r="5" fill="#F7FAF7"/>
+      <circle cx="538" cy="294" r="5" fill="#F7FAF7"/>
+    </g>
+    <path d="M512 150L527 177L512 204L497 177L512 150Z" fill="#46A84F"/>
+    <g>
+      <path d="M420 400C457 404 489 423 512 455C535 423 567 404 604 400L633 418C598 430 568 456 544 494L512 540L480 494C456 456 426 430 391 418L420 400Z" fill="#255B32"/>
+      <path d="M435 404C464 409 490 425 512 452C534 425 560 409 589 404" stroke="#F7FAF7" stroke-width="8" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g fill="#255B32" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <text x="512" y="760" font-size="138" font-weight="700" letter-spacing="1">Sapi</text>
+  </g>
+</svg>

@@ -46,3 +46,7 @@ npx expo start --tunnel
 3. adicionar revisão e modo simulado;
 4. integrar Supabase/Auth;
 5. preparar monetização e plano Pro.
+
+## Identidade visual
+
+A direção estética base do produto está em `docs/brand-guide.md`, com o asset inicial em `assets/branding/sapi-base-logo.svg`.
